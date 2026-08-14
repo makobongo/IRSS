@@ -1,4 +1,5 @@
 ## Intelligent Risk Survey System
+An intelligent risk assessment system built with Spring Boot that collects survey responses, evaluates risk levels, and provides data-driven insights to support better decision-making.
 ###  Docker installation
 Before you get started, ensure you have docker installed in your machine
 ````
