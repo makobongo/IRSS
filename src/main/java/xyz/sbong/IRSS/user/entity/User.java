@@ -2,8 +2,7 @@ package xyz.sbong.IRSS.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
+import xyz.sbong.IRSS.common.Auditable;
 
 @Entity
 @NoArgsConstructor
@@ -13,16 +12,13 @@ import java.util.UUID;
 @ToString
 @Builder
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class User extends Auditable {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private String phoneNumber;
-    private String role;
     private String department;
+    private String role;
     private Boolean isActive;
 }
