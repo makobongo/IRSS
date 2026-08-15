@@ -7,17 +7,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: docker
-      # Prevent Spring Boot from trying to manage Docker
-      # from inside the application container.
-      SPRING_DOCKER_COMPOSE_ENABLED: "false"
-
+      - SPRING_DEVTOOLS_REMOTE_ENABLED=true
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
     volumes:
-      # Mount source code for development
-      - .:/workspace
-      # Keep Maven dependencies outside the container filesystem
-      - maven-cache:/root/.m2
-    working_dir: /workspace
+      - .:/app
+      - maven_cache:/root/.m2
+    working_dir: /app
     command: >
       ./mvnw
       spring-boot:run
@@ -39,5 +34,5 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 volumes:
-  maven-cache:
+  maven_cache:
   mysql_data:
