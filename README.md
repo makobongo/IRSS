@@ -8,8 +8,10 @@ Before you get started, ensure you have docker installed in your machine
 ### Project Setup
 Clone the Repository
 ````
-git clone [git@github.com:makobongo/IRSS.git](git@github.com:makobongo/IRSS.git)
-cd IRSS
+1. git clone [git@github.com:makobongo/IRSS.git](git@github.com:makobongo/IRSS.git)
+2. cd IRSS
+3. copy .env.example to .env and update the environment variables as needed
+
 ````
 ### Run the project:
 ````
