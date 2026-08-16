@@ -2,7 +2,11 @@ package xyz.sbong.IRSS.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,9 +19,12 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()) // Allow all requests without authentication
-                .csrf(csrf -> csrf.disable()); // Optional: disable CSRF for local POST/PUT testing
-        return http.build();
+        return http.csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(request-> request
+                        .requestMatchers("/api/user/register", "/api/user/login", "/api/users/all").permitAll()
+                        .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
     }
 }
