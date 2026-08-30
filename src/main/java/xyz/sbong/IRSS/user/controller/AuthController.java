@@ -1,10 +1,9 @@
 package xyz.sbong.IRSS.user.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.web.bind.annotation.*;
 import xyz.sbong.IRSS.user.entity.User;
 import xyz.sbong.IRSS.user.service.AuthService;
 
@@ -19,8 +18,10 @@ public class AuthController {
         return "User registered successfully";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        return authService.verifyUser(user);
+    @GetMapping("/login")
+    public String csrfToken(HttpServletRequest request) {
+//        return authService.verifyUser(user);
+        return "User login successful "+request.getSession().getId();
+//        return (CsrfToken) request.getAttribute("_csrf");
     }
 }
